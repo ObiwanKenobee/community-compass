@@ -4,11 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { KPIStat } from '@/components/KPIStat';
 import { InlineTip } from '@/components/InlineTip';
+import { CollaboratorAvatars } from '@/components/CollaboratorAvatars';
+import { CollabActivityFeed } from '@/components/CollabActivityFeed';
+import { useRealtimeCollaboration } from '@/hooks/useRealtimeCollaboration';
 import { INTERVENTION_TEMPLATES } from '@/data/mockData';
 import { ArrowLeft, ArrowRight, Play, Plus, X, Loader2, CheckCircle, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useState } from 'react';
-import type { Intervention, Scenario } from '@/types';
+import type { Intervention } from '@/types';
 
 export default function ScenarioLab() {
   const {
@@ -16,6 +18,7 @@ export default function ScenarioLab() {
     activeScenarioId, setActiveScenario, runSimulation, simulationRuns, setStep,
   } = useProjectStore();
   const navigate = useNavigate();
+  const { collaborators, events, myName, myColor, broadcastEvent, updateCursor } = useRealtimeCollaboration('scenario-lab');
 
   const activeScenario = scenarios.find((s) => s.id === activeScenarioId);
   const activeRun = simulationRuns.find(
@@ -28,6 +31,7 @@ export default function ScenarioLab() {
     const id = `scenario-${Date.now()}`;
     const name = `Scenario ${String.fromCharCode(65 + scenarios.length)}`;
     addScenario({ id, name, interventions: [] });
+    broadcastEvent('scenario_created', { name });
   };
 
   const addFromTemplate = (template: typeof INTERVENTION_TEMPLATES[0]) => {
@@ -43,11 +47,13 @@ export default function ScenarioLab() {
       timelineMonths: template.timelineMonths!,
     };
     addIntervention(activeScenarioId, intervention);
+    broadcastEvent('intervention_added', { name: template.name });
   };
 
   const handleRun = () => {
     if (!activeScenarioId) return;
     runSimulation(activeScenarioId);
+    broadcastEvent('simulation_started', {});
   };
 
   const latestRun = activeScenarioId
@@ -58,12 +64,21 @@ export default function ScenarioLab() {
     <AppLayout>
       <div className="container max-w-6xl mx-auto px-4 py-10">
         <div className="mb-6">
-          <h1 className="text-2xl font-bold mb-2">Scenario Lab</h1>
+          <div className="flex items-start justify-between mb-2">
+            <h1 className="text-2xl font-bold">Scenario Lab</h1>
+            <CollaboratorAvatars collaborators={collaborators} myName={myName} myColor={myColor} />
+          </div>
           <p className="text-muted-foreground">Compose interventions, run simulations, and see projected outcomes.</p>
           <InlineTip tipKey="scenario-intro" className="mt-3">
             <strong>How it works:</strong> Create a scenario, add intervention templates from the left panel, then hit "Run Simulation" to see projected KPI changes and tradeoffs.
           </InlineTip>
+          <InlineTip tipKey="collab-tip" className="mt-2">
+            <strong>Collaboration:</strong> Other teachers in this project appear as avatars above. Changes are broadcast in real-time—everyone sees interventions added or removed instantly.
+          </InlineTip>
         </div>
+
+        {/* Live activity feed */}
+        <CollabActivityFeed events={events} />
 
         {/* Scenario tabs */}
         <div className="flex gap-2 mb-6">
@@ -145,7 +160,10 @@ export default function ScenarioLab() {
                         </div>
                       </div>
                       <button
-                        onClick={() => removeIntervention(activeScenario.id, int.id)}
+                        onClick={() => {
+                          removeIntervention(activeScenario.id, int.id);
+                          broadcastEvent('intervention_removed', { name: int.name });
+                        }}
                         className="text-muted-foreground hover:text-destructive transition-colors"
                       >
                         <X className="w-4 h-4" />
