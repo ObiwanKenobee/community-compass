@@ -9,6 +9,7 @@ import BaselineBuilder from "./pages/BaselineBuilder";
 import ScenarioLab from "./pages/ScenarioLab";
 import ComparisonView from "./pages/ComparisonView";
 import ProposalBuilder from "./pages/ProposalBuilder";
+import Gallery from "./pages/Gallery";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/scenario" element={<ScenarioLab />} />
           <Route path="/comparison" element={<ComparisonView />} />
           <Route path="/proposal" element={<ProposalBuilder />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

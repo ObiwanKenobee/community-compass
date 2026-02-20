@@ -14,7 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      published_projects: {
+        Row: {
+          approved_at: string | null
+          community_name: string
+          community_region: string
+          created_at: string
+          id: string
+          interventions: Json
+          outcomes: Json
+          problem_category: string
+          problem_title: string
+          school_name: string | null
+          status: string
+          student_count: number | null
+          summary: string | null
+          title: string
+        }
+        Insert: {
+          approved_at?: string | null
+          community_name: string
+          community_region: string
+          created_at?: string
+          id?: string
+          interventions?: Json
+          outcomes?: Json
+          problem_category: string
+          problem_title: string
+          school_name?: string | null
+          status?: string
+          student_count?: number | null
+          summary?: string | null
+          title: string
+        }
+        Update: {
+          approved_at?: string | null
+          community_name?: string
+          community_region?: string
+          created_at?: string
+          id?: string
+          interventions?: Json
+          outcomes?: Json
+          problem_category?: string
+          problem_title?: string
+          school_name?: string | null
+          status?: string
+          student_count?: number | null
+          summary?: string | null
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

@@ -3,9 +3,11 @@ import { AppLayout } from '@/components/AppLayout';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { MapPin, Users, Shield, ArrowRight } from 'lucide-react';
+import { useNavigate, Link } from 'react-router-dom';
+import { MapPin, Users, Shield, ArrowRight, Globe } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { OnboardingTour } from '@/components/OnboardingTour';
+import { InlineTip } from '@/components/InlineTip';
 
 const Index = () => {
   const { communities, selectCommunity, selectedCommunity, setStep, hasConsented, setConsent } = useProjectStore();
@@ -21,6 +23,7 @@ const Index = () => {
 
   return (
     <AppLayout hideSteps>
+      <OnboardingTour />
       <div className="bg-gradient-hero min-h-[calc(100vh-3.5rem)]">
         <div className="container max-w-5xl mx-auto px-4 py-12">
           {/* Hero */}
@@ -36,10 +39,25 @@ const Index = () => {
           </div>
 
           {/* Community Selection */}
+          {/* Gallery link */}
+          <div className="flex justify-center mb-6 animate-slide-up" style={{ animationDelay: '0.05s' }}>
+            <Link
+              to="/gallery"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg border border-border bg-card/50 text-sm text-muted-foreground hover:text-foreground hover:border-primary/30 transition-all"
+            >
+              <Globe className="w-4 h-4 text-primary" />
+              Browse Community Gallery
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
           <div className="mb-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
             <h2 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4 flex items-center gap-2">
               <MapPin className="w-4 h-4" /> Select Your Community
             </h2>
+            <InlineTip tipKey="community-select" className="mb-3">
+              <strong>Teacher tip:</strong> Each community card shows real baseline data. Pick the area closest to your school or a community your class wants to study.
+            </InlineTip>
             <div className="grid md:grid-cols-3 gap-4">
               {communities.map((c) => (
                 <button
@@ -77,6 +95,9 @@ const Index = () => {
 
           {/* Consent */}
           <div className="animate-slide-up max-w-xl mx-auto" style={{ animationDelay: '0.2s' }}>
+            <InlineTip tipKey="consent-info" className="mb-3">
+              <strong>Important:</strong> Students must accept the privacy consent before proceeding. All data is aggregated—no individual identities are collected.
+            </InlineTip>
             <div className="rounded-xl border border-border bg-card p-5 mb-6">
               <div className="flex items-start gap-3 mb-3">
                 <Shield className="w-5 h-5 text-primary mt-0.5" />

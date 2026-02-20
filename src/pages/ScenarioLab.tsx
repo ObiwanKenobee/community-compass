@@ -3,6 +3,7 @@ import { AppLayout } from '@/components/AppLayout';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { KPIStat } from '@/components/KPIStat';
+import { InlineTip } from '@/components/InlineTip';
 import { INTERVENTION_TEMPLATES } from '@/data/mockData';
 import { ArrowLeft, ArrowRight, Play, Plus, X, Loader2, CheckCircle, Clock } from 'lucide-react';
 import { cn } from '@/lib/utils';
@@ -59,6 +60,9 @@ export default function ScenarioLab() {
         <div className="mb-6">
           <h1 className="text-2xl font-bold mb-2">Scenario Lab</h1>
           <p className="text-muted-foreground">Compose interventions, run simulations, and see projected outcomes.</p>
+          <InlineTip tipKey="scenario-intro" className="mt-3">
+            <strong>How it works:</strong> Create a scenario, add intervention templates from the left panel, then hit "Run Simulation" to see projected KPI changes and tradeoffs.
+          </InlineTip>
         </div>
 
         {/* Scenario tabs */}

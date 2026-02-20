@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { StepIndicator } from '@/components/StepIndicator';
+import { OfflineIndicator } from '@/components/OfflineIndicator';
 import { useProjectStore } from '@/store/useProjectStore';
 import { Activity } from 'lucide-react';
 
@@ -26,6 +27,9 @@ export function AppLayout({ children, hideSteps }: AppLayoutProps) {
               <StepIndicator />
             </div>
           )}
+          <div className="ml-auto">
+            <OfflineIndicator />
+          </div>
         </div>
       </header>
       <main className="flex-1">

@@ -123,12 +123,25 @@ export const MOCK_PROBLEMS: ProblemType[] = [
 ];
 
 export const INTERVENTION_TEMPLATES: Partial<Intervention>[] = [
+  // Heat & Environment
   { type: 'tree_planting', name: 'Plant 10,000 Trees', description: 'Urban reforestation in zones A/B', costEstimate: 500000, timelineMonths: 18 },
   { type: 'cooling_center', name: 'Add 2 Cooling Centers', description: 'Public cooling infrastructure with water stations', costEstimate: 200000, timelineMonths: 6 },
+  { type: 'tree_planting', name: 'Green Corridors (3 routes)', description: 'Tree-lined walking paths connecting schools to transit', costEstimate: 350000, timelineMonths: 12 },
+  { type: 'cooling_center', name: 'Rooftop Garden Program', description: 'Convert 20 flat rooftops to reflective gardens', costEstimate: 280000, timelineMonths: 14 },
+  // Food
   { type: 'waste_reduction', name: 'Reduce Food Waste 30%', description: 'Supply chain optimization + community composting', costEstimate: 80000, timelineMonths: 9 },
   { type: 'community_garden', name: 'Community Gardens (5 sites)', description: 'Urban farming in underutilized lots', costEstimate: 150000, timelineMonths: 12 },
-  { type: 'job_training', name: 'Youth Tech Training', description: 'Digital skills bootcamp for 500 youth', costEstimate: 400000, timelineMonths: 12 },
-  { type: 'mental_health', name: 'Mobile Counseling Units', description: 'Peer support and professional counseling', costEstimate: 250000, timelineMonths: 6 },
   { type: 'food_program', name: 'School Meal Subsidy', description: 'Nutritious meals for 10,000 students', costEstimate: 300000, timelineMonths: 3 },
+  { type: 'food_program', name: 'Mobile Food Market', description: 'Weekly fresh produce truck serving 4 food deserts', costEstimate: 120000, timelineMonths: 6 },
+  // Jobs
+  { type: 'job_training', name: 'Youth Tech Training', description: 'Digital skills bootcamp for 500 youth', costEstimate: 400000, timelineMonths: 12 },
+  { type: 'job_training', name: 'Micro-Enterprise Grants', description: 'Seed funding + mentorship for 100 youth businesses', costEstimate: 250000, timelineMonths: 18 },
+  { type: 'job_training', name: 'Green Jobs Pipeline', description: 'Train youth for urban forestry and solar installation', costEstimate: 320000, timelineMonths: 15 },
+  // Health
+  { type: 'mental_health', name: 'Mobile Counseling Units', description: 'Peer support and professional counseling', costEstimate: 250000, timelineMonths: 6 },
+  { type: 'mental_health', name: 'School Wellness Rooms', description: 'Quiet spaces + trained counselors in 10 schools', costEstimate: 180000, timelineMonths: 8 },
+  // Transit & Infrastructure
   { type: 'transit_improvement', name: 'Bus Route Expansion', description: 'Add 4 new routes connecting underserved areas', costEstimate: 800000, timelineMonths: 18 },
+  { type: 'transit_improvement', name: 'Safe Walking Paths', description: 'Lit, paved walkways in 3 high-risk zones', costEstimate: 450000, timelineMonths: 10 },
+  { type: 'transit_improvement', name: 'Solar Street Lighting', description: 'Install 200 solar lights on main routes', costEstimate: 160000, timelineMonths: 6 },
 ];
